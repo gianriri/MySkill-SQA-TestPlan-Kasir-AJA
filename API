@@ -1,0 +1,148 @@
+# Test Plan – Kasir AJA API
+
+## 1. Objective
+The objective of this test plan is to define the testing approach for the **Kasir AJA API**, which provides endpoints for user management, authentication, product management, and transactions.  
+The testing will ensure that the API meets functional requirements, handles errors properly, and supports secure operations.
+
+---
+
+## 2. API Description
+The Kasir AJA API allows management of cashier operations with the following functionalities:
+
+- **User Management**: Create new users and login.  
+- **Product Management**: Add, view, update, and delete products.  
+- **Transaction Management**: Create and view transactions.  
+
+The API uses JSON format for requests and responses. Authentication is handled using a Bearer token.
+
+---
+
+## 3. Scope
+
+**In Scope:**
+- Functional testing of core endpoints (`/users`, `/authentications`, `/products`, `/transactions`).  
+- Validation of request/response payloads.  
+- Positive and negative test scenarios.  
+- Authentication and authorization.  
+
+**Out of Scope:**
+- Performance testing.  
+- Security penetration testing.  
+- Database-level testing.  
+
+---
+
+## 4. Test Environment
+- **Tools**: Postman, Newman  
+- **Base URL**: (as per API Contract)  
+- **Data Format**: JSON  
+- **Access**: Requires Bearer token for protected endpoints  
+
+---
+
+## 5. Test Data
+
+**Positive Test Data Example (Create User):**
+```json
+{ 
+  "name": "kasir-serbaguna", 
+  "email": "user@example.com", 
+  "password": "123adsfadf@" 
+}
+
+**Negative Test Data Example (Create User):**
+- Invalid email format: "email": "invalidemail"
+- Missing required field {"name": ""}
+- Wrong password for login
+```json
+{ 
+  "name": "", 
+  "email": "invalidemail", 
+  "password": "Test1234" 
+}
+
+---
+
+## 6. Test Strategy
+- **Functional Testing**: CRUD operations on users, products, transactions.  
+- **Negative Testing**: Invalid payloads, missing fields, wrong data types.  
+- **Boundary Testing**: Maximum field length, invalid IDs.  
+- **Authentication Testing**: Valid vs invalid/expired tokens.  
+
+---
+
+## 7. Defect Reporting Procedure
+- Tool: Google Sheets / Jira (for actual projects).  
+- Each defect should include: **Title, Steps to Reproduce, Expected Result, Actual Result, Severity, Screenshot/Logs**.  
+
+---
+
+## 8. Test Schedule
+- **Test Case Design**: Day 1–2  
+- **Test Execution**: Day 3–5  
+- **Defect Reporting & Retesting**: Day 6–7  
+- **Test Closure**: Day 8  
+
+---
+
+## 9. Test Coverages (Test Ideas)
+
+| Endpoint                          | Test Scenario                               | Expected Result                      |
+|-----------------------------------|---------------------------------------------|--------------------------------------|
+| **POST /users**                   | Create user with valid data                 | 201 Created, user added              |
+|                                   | Create user with missing fields             | 400 Bad Request                      |
+|                                   | Create user with invalid email              | 400 Bad Request                      |
+| **POST /authentications**         | Login with valid credentials                | 200 OK, token returned               |
+|                                   | Login with wrong password                   | 401 Unauthorized                     |
+|                                   | Login with missing email field              | 400 Bad Request                      |
+| **POST /products**                | Add product with valid data                 | 201 Created, product added           |
+|                                   | Add product with missing field (e.g. price) | 400 Bad Request                      |
+| **GET /products**                 | Fetch product list                          | 200 OK, list of products returned    |
+| **GET /products/{productId}**     | Fetch product by valid ID                   | 200 OK, product detail returned      |
+|                                   | Fetch product by invalid ID                 | 404 Not Found                        |
+| **PUT /products/{productId}**     | Update product with valid data              | 200 OK, product updated              |
+|                                   | Update with invalid data                    | 400 Bad Request                      |
+| **DELETE /products/{productId}**  | Delete product with valid token             | 200 OK, product deleted              |
+|                                   | Delete product without token                | 401 Unauthorized                     |
+| **POST /sales**                   | Create transaction with valid data          | 201 Created, transaction saved       |
+|                                   | Create transaction with missing items       | 400 Bad Request                      |
+| **GET /purchases**                | Retrieve transactions list                  | 200 OK, list returned                |
+
+---
+
+## 10. Risk and Mitigation
+
+| Risk                        | Mitigation                                |
+|-----------------------------|-------------------------------------------|
+| API downtime during testing | Coordinate with developer, retry off-peak |
+| Incomplete documentation    | Clarify with stakeholders before testing  |
+| Shared test environment data| Use unique IDs or cleanup after tests     |
+
+---
+
+## 11. Testing Tools
+- Postman (manual testing)  
+- Newman (collection runner / automation)  
+- Swagger (API reference)  
+
+---
+
+## 12. Roles and Responsibilities
+- **QA Engineer**: Prepare test cases, execute tests, log defects.  
+- **Developer**: Fix defects, maintain API contract.  
+- **Project Manager**: Approve deliverables, monitor schedule.  
+
+---
+
+## 13. Test Deliverables
+- Test Plan (this document).  
+- Test Case Sheet / Postman Collection.  
+- Test Execution Report.  
+- Defect Report.  
+
+---
+
+## 14. Approvers List
+- **QA Lead**: [Name]  
+- **Project Manager**: [Name]  
+- **Developer Lead**: [Name]  
