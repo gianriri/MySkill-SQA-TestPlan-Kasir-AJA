@@ -17,7 +17,7 @@ The project focuses on designing **test ideas** and **test strategies** for the 
 ---
 
 ## 📂 Files in this Repo
-- `TestPlan_KasirAJA_API.md` → Full test plan document (objectives, scope, strategy, test ideas, risks, etc.).  
+Full test plan document (objectives, scope, strategy, test ideas, risks, etc.).  
 
 ---
 
